@@ -12,6 +12,9 @@ export default function RSVPPage() {
   const [cargando, setCargando] = useState(true);
   const [confirmando, setConfirmando] = useState(false);
 
+  // Obtenemos la URL real donde está alojada la página
+  const baseUrl = typeof window !== 'undefined' ? window.location.origin : '';
+
   useEffect(() => {
     if (id) fetchInvitado();
   }, [id]);
@@ -44,7 +47,6 @@ export default function RSVPPage() {
     setConfirmando(false);
   };
 
-  // --- Nueva función para rechazar ---
   const rechazarAsistencia = async () => {
     const seguro = window.confirm("¿Estás seguro de que no podrás acompañarnos?");
     if (!seguro) return;
@@ -58,7 +60,6 @@ export default function RSVPPage() {
   if (cargando) return <div className="min-h-screen bg-pink-50 flex items-center justify-center text-pink-600 font-semibold">Cargando tu invitación...</div>;
   if (!invitado) return <div className="min-h-screen bg-pink-50 flex items-center justify-center text-gray-600">Invitación no encontrada.</div>;
 
-  // --- Vista de Rechazado ---
   if (invitado.estatus === 'rechazado') {
     return (
       <div className="min-h-screen bg-pink-50 p-6 flex flex-col items-center justify-center text-center">
@@ -70,7 +71,8 @@ export default function RSVPPage() {
     );
   }
 
-  const urlCheckin = `http://localhost:3000/checkin/${invitado.id}`;
+  // AQUÍ ESTÁ LA CORRECCIÓN: Usamos baseUrl en lugar de localhost
+  const urlCheckin = `${baseUrl}/checkin/${invitado.id}`;
   const totalPersonas = 1 + acompanantesLocales.length;
 
   return (
@@ -136,6 +138,7 @@ export default function RSVPPage() {
             </div>
             <p className="text-sm text-gray-600 font-medium">Este es tu pase digital. Tómale captura y preséntalo en la recepción el día del evento.</p>
             <div className="p-4 bg-white border-4 border-pink-100 rounded-2xl shadow-sm">
+              {/* El QR ahora usa urlCheckin dinámico */}
               <QRCodeSVG value={urlCheckin} size={220} level="H" includeMargin={false} />
             </div>
           </div>
