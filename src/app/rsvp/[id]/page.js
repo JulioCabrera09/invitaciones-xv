@@ -71,7 +71,6 @@ export default function RSVPPage() {
     );
   }
 
-  // AQUÍ ESTÁ LA CORRECCIÓN: Usamos baseUrl en lugar de localhost
   const urlCheckin = `${baseUrl}/checkin/${invitado.id}`;
   const totalPersonas = 1 + acompanantesLocales.length;
 
@@ -80,8 +79,24 @@ export default function RSVPPage() {
       <div className="bg-white p-8 rounded-3xl shadow-xl max-w-md w-full border border-pink-100">
         
         <h1 className="text-4xl font-extrabold text-pink-600 mb-2 tracking-tight">¡Mis XV Años!</h1>
-        <p className="text-gray-500 mb-8 font-medium">Nos encantaría que nos acompañes en este día tan especial.</p>
+        <p className="text-gray-500 mb-4 font-medium">Nos encantaría que nos acompañes en este día tan especial.</p>
         
+        {/* --- NUEVA SECCIÓN: DETALLES DEL EVENTO Y GOOGLE MAPS --- */}
+        <div className="mb-8 px-2">
+          <p className="text-sm text-gray-600 leading-relaxed mb-5 text-justify">
+            El evento se llevará a cabo el día <strong>3 de Octubre</strong> del año en curso, en el salón <strong>"Alta Esmeralda"</strong> del restaurante Piedra 44 de la Plaza Vitta con dirección Blvd. Belisario Domínguez 1380-Loc 2A, en un horario de <strong>6pm - 11pm</strong>, esperamos contar con su presencia puntualmente.
+          </p>
+          <a 
+            href="https://www.google.com/maps/search/?api=1&query=Restaurante+Piedra+44+Plaza+Vitta+Blvd.+Belisario+Domínguez+1380" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="inline-flex items-center justify-center gap-2 w-full bg-white border-2 border-pink-200 text-pink-600 hover:bg-pink-50 hover:border-pink-300 font-bold py-3 px-4 rounded-xl transition-all shadow-sm"
+          >
+            📍 Ver ubicación en Google Maps
+          </a>
+        </div>
+        {/* --- FIN DE LA NUEVA SECCIÓN --- */}
+
         <div className="mb-6 p-5 bg-pink-50/50 rounded-2xl border border-pink-100">
           <div className="inline-block bg-pink-200 text-pink-800 text-sm font-black px-4 py-1 rounded-full mb-3 shadow-sm">
             PASE PARA {totalPersonas} PERSONA{totalPersonas > 1 ? 'S' : ''}
@@ -138,7 +153,6 @@ export default function RSVPPage() {
             </div>
             <p className="text-sm text-gray-600 font-medium">Este es tu pase digital. Tómale captura y preséntalo en la recepción el día del evento.</p>
             <div className="p-4 bg-white border-4 border-pink-100 rounded-2xl shadow-sm">
-              {/* El QR ahora usa urlCheckin dinámico */}
               <QRCodeSVG value={urlCheckin} size={220} level="H" includeMargin={false} />
             </div>
           </div>
