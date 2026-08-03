@@ -12,7 +12,6 @@ export default function RSVPPage() {
   const [cargando, setCargando] = useState(true);
   const [confirmando, setConfirmando] = useState(false);
 
-  // Obtenemos la URL real donde está alojada la página
   const baseUrl = typeof window !== 'undefined' ? window.location.origin : '';
 
   useEffect(() => {
@@ -74,14 +73,22 @@ export default function RSVPPage() {
   const urlCheckin = `${baseUrl}/checkin/${invitado.id}`;
   const totalPersonas = 1 + acompanantesLocales.length;
 
+  // --- LÓGICA DE FECHA LÍMITE ---
+  // A partir del 25 de septiembre a media noche, ya no se puede confirmar
+  const fechaLimite = new Date('2026-09-25T00:00:00');
+  const hoy = new Date();
+  const puedeConfirmar = hoy < fechaLimite;
+
   return (
     <div className="min-h-screen bg-pink-50 p-6 flex flex-col items-center justify-center font-sans text-center">
       <div className="bg-white p-8 rounded-3xl shadow-xl max-w-md w-full border border-pink-100">
         
-        <h1 className="text-4xl font-extrabold text-pink-600 mb-2 tracking-tight">¡Mis XV Años!</h1>
-        <p className="text-gray-500 mb-4 font-medium">Nos encantaría que nos acompañes en este día tan especial.</p>
+        {/* NOMBRE DE LA QUINCEAÑERA */}
+        <h2 className="text-xl md:text-2xl font-bold text-pink-400 mb-1 uppercase tracking-widest leading-tight">Paula Yáñez Valero</h2>
+        <h1 className="text-4xl md:text-5xl font-extrabold text-pink-600 mb-4 tracking-tight drop-shadow-sm">¡Mis XV Años!</h1>
+        <p className="text-gray-500 mb-6 font-medium">Nos encantaría que nos acompañes en este día tan especial.</p>
         
-        {/* --- NUEVA SECCIÓN: DETALLES DEL EVENTO Y GOOGLE MAPS --- */}
+        {/* DETALLES Y MAPA */}
         <div className="mb-8 px-2">
           <p className="text-sm text-gray-600 leading-relaxed mb-5 text-justify">
             El evento se llevará a cabo el día <strong>3 de Octubre</strong> del año en curso, en el salón <strong>"Alta Esmeralda"</strong> del restaurante Piedra 44 de la Plaza Vitta con dirección Blvd. Belisario Domínguez 1380-Loc 2A, en un horario de <strong>6pm - 11pm</strong>, esperamos contar con su presencia puntualmente.
@@ -95,7 +102,18 @@ export default function RSVPPage() {
             📍 Ver ubicación en Google Maps
           </a>
         </div>
-        {/* --- FIN DE LA NUEVA SECCIÓN --- */}
+
+        {/* MESA DE REGALOS LIVERPOOL */}
+        <div className="mb-8 p-5 bg-white rounded-2xl border border-pink-100 shadow-sm relative overflow-hidden">
+          <div className="absolute top-0 left-0 w-full h-1.5 bg-pink-300"></div>
+          <h3 className="text-lg font-bold text-gray-800 mb-1">🎁 Mesa de Regalos</h3>
+          <p className="text-sm text-gray-500 mb-4">El mejor regalo es tu presencia, pero si deseas tener un detalle conmigo:</p>
+          <div className="bg-pink-50 py-3 px-6 rounded-xl inline-block border border-pink-100">
+            <p className="text-xs font-semibold text-pink-800 uppercase tracking-widest mb-1">Liverpool</p>
+            <p className="text-2xl font-black text-pink-600 tracking-widest">52034471</p>
+          </div>
+          <p className="text-xs text-gray-400 mt-3 font-medium">Vigencia hasta el 2 de noviembre del 2026</p>
+        </div>
 
         <div className="mb-6 p-5 bg-pink-50/50 rounded-2xl border border-pink-100">
           <div className="inline-block bg-pink-200 text-pink-800 text-sm font-black px-4 py-1 rounded-full mb-3 shadow-sm">
@@ -118,6 +136,7 @@ export default function RSVPPage() {
                     <input 
                       type="text" value={acomp.nombre} onChange={(e) => handleNombreAcompanante(idx, e.target.value)}
                       placeholder={`Nombre del acompañante ${idx + 1}`} className="w-full px-4 py-2 border border-pink-200 rounded-xl focus:ring-2 focus:ring-pink-400 outline-none text-gray-700 bg-white"
+                      disabled={!puedeConfirmar} // Deshabilita inputs si ya pasó la fecha
                     />
                   ) : (
                     <div className="flex items-center gap-2 px-4 py-2 bg-gray-50 border border-gray-100 rounded-xl">
@@ -131,21 +150,29 @@ export default function RSVPPage() {
           </div>
         )}
 
+        {/* LÓGICA DE BOTONES Y FECHA LÍMITE */}
         {invitado.estatus === 'pendiente' ? (
-          <div className="flex flex-col gap-3 mt-6">
-            <button 
-              onClick={confirmarAsistencia} disabled={confirmando}
-              className="w-full bg-pink-500 hover:bg-pink-600 text-white font-bold py-4 px-6 rounded-2xl transition-transform active:scale-95 disabled:opacity-50 text-lg shadow-md shadow-pink-200"
-            >
-              {confirmando ? 'Procesando...' : 'Confirmar Asistencia'}
-            </button>
-            <button 
-              onClick={rechazarAsistencia} disabled={confirmando}
-              className="w-full bg-transparent hover:bg-red-50 text-red-500 font-semibold py-3 px-6 rounded-2xl transition-colors disabled:opacity-50 text-sm"
-            >
-              No podré asistir
-            </button>
-          </div>
+          puedeConfirmar ? (
+            <div className="flex flex-col gap-3 mt-6">
+              <button 
+                onClick={confirmarAsistencia} disabled={confirmando}
+                className="w-full bg-pink-500 hover:bg-pink-600 text-white font-bold py-4 px-6 rounded-2xl transition-transform active:scale-95 disabled:opacity-50 text-lg shadow-md shadow-pink-200"
+              >
+                {confirmando ? 'Procesando...' : 'Confirmar Asistencia'}
+              </button>
+              <button 
+                onClick={rechazarAsistencia} disabled={confirmando}
+                className="w-full bg-transparent hover:bg-red-50 text-red-500 font-semibold py-3 px-6 rounded-2xl transition-colors disabled:opacity-50 text-sm"
+              >
+                No podré asistir
+              </button>
+            </div>
+          ) : (
+            <div className="mt-6 p-5 bg-gray-50 rounded-2xl border border-gray-200">
+              <p className="text-gray-600 font-semibold text-sm">⚠️ El periodo para confirmar asistencia ha finalizado (24 de septiembre).</p>
+              <p className="text-xs text-gray-500 mt-2">Si deseas realizar una modificación de último momento, por favor contacta directamente a la familia.</p>
+            </div>
+          )
         ) : (
           <div className="flex flex-col items-center space-y-5 animate-in fade-in duration-500 mt-6">
             <div className="bg-green-100 text-green-700 px-6 py-2 rounded-full font-bold shadow-sm">

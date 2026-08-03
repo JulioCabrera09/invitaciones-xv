@@ -31,7 +31,6 @@ export default function AdminDashboard() {
   const totalPendientes = invitados.filter(i => i?.estatus === 'pendiente').length;
   const totalRechazados = invitados.filter(i => i?.estatus === 'rechazado').length;
 
-  // Lógica de búsqueda blindada contra errores de datos vacíos
   const invitadosFiltrados = invitados.filter(invitado => {
     const termino = (busqueda || '').toLowerCase();
     const coincidePrincipal = (invitado?.nombre || '').toLowerCase().includes(termino);
@@ -66,6 +65,14 @@ export default function AdminDashboard() {
     const confirmar = window.confirm('¿Estás seguro de eliminar a este invitado? Se borrarán también sus acompañantes.');
     if (!confirmar) return;
     await supabase.from('invitados').delete().eq('id', id);
+    fetchInvitados();
+  };
+
+  // --- NUEVA FUNCIÓN: Restablecer Estatus ---
+  const restablecerEstatus = async (id) => {
+    const confirmar = window.confirm('¿Estás seguro de restablecer el estatus a "Pendiente"? Esto permitirá al invitado volver a confirmar (si aún está a tiempo).');
+    if (!confirmar) return;
+    await supabase.from('invitados').update({ estatus: 'pendiente' }).eq('id', id);
     fetchInvitados();
   };
 
@@ -287,12 +294,15 @@ export default function AdminDashboard() {
                       </ul>
                     ) : <span className="text-gray-400 text-sm">Sin acompañantes</span>}
                   </div>
+                  
+                  {/* Botones Móvil */}
                   <div className="flex flex-wrap gap-2 border-t border-gray-100 pt-3">
                     <button onClick={() => copiarEnlace(invitado.id)} className="bg-gray-100 text-gray-700 py-1.5 px-3 rounded-lg text-xs font-semibold flex-1 text-center">📋 Link</button>
                     {invitado.estatus !== 'rechazado' && (
                        <button onClick={() => descargarQR(invitado.id, invitado.nombre)} className="bg-purple-50 text-purple-700 py-1.5 px-3 rounded-lg text-xs font-semibold flex-1 text-center">⬇️ QR</button>
                     )}
                     <button onClick={() => iniciarEdicion(invitado)} className="bg-blue-50 text-blue-700 py-1.5 px-3 rounded-lg text-xs font-semibold flex-1 text-center">✏️ Editar</button>
+                    <button onClick={() => restablecerEstatus(invitado.id)} className="bg-orange-50 text-orange-700 py-1.5 px-3 rounded-lg text-xs font-semibold flex-1 text-center">🔄 Reset</button>
                     <button onClick={() => eliminarInvitado(invitado.id)} className="bg-red-50 text-red-700 py-1.5 px-3 rounded-lg text-xs font-semibold flex-1 text-center">🗑️ Borrar</button>
                     <div className="hidden"><QRCodeSVG id={`qr-${invitado.id}`} value={`${baseUrl}/rsvp/${invitado.id}`} size={256} level="H" /></div>
                   </div>
@@ -310,14 +320,13 @@ export default function AdminDashboard() {
                   <th className="p-4 font-semibold">Pases / Acompañantes</th>
                   <th className="p-4 font-semibold">Estatus</th>
                   <th className="p-4 font-semibold">Enlace RSVP</th>
-                  <th className="p-4 font-semibold">QR</th>
                   <th className="p-4 font-semibold text-center">Acciones</th>
                 </tr>
               </thead>
               <tbody>
                 {invitadosFiltrados.length === 0 ? (
                   <tr>
-                    <td colSpan="6" className="p-8 text-center text-gray-500">
+                    <td colSpan="5" className="p-8 text-center text-gray-500">
                       {busqueda ? 'No se encontraron resultados para tu búsqueda.' : 'No hay invitados registrados aún.'}
                     </td>
                   </tr>
@@ -347,18 +356,19 @@ export default function AdminDashboard() {
                           </span>
                         </td>
                         <td className="p-4">
-                           <button onClick={() => copiarEnlace(invitado.id)} className="bg-gray-100 hover:bg-gray-200 text-gray-700 py-1 px-3 rounded-lg text-sm font-semibold transition-colors flex items-center gap-1">
+                           <button onClick={() => copiarEnlace(invitado.id)} className="bg-gray-100 hover:bg-gray-200 text-gray-700 py-1 px-3 rounded-lg text-sm font-semibold transition-colors flex items-center gap-1 mb-2">
                              📋 Copiar Link
                            </button>
-                        </td>
-                        <td className="p-4">
-                            <div className="hidden"><QRCodeSVG id={`qr-${invitado.id}`} value={`${baseUrl}/rsvp/${invitado.id}`} size={256} level="H" /></div>
+                           <div className="hidden"><QRCodeSVG id={`qr-${invitado.id}`} value={`${baseUrl}/rsvp/${invitado.id}`} size={256} level="H" /></div>
                             {invitado.estatus !== 'rechazado' && (
-                              <button onClick={() => descargarQR(invitado.id, invitado.nombre)} className="text-purple-600 hover:text-purple-800 text-sm font-semibold">Descargar QR</button>
+                              <button onClick={() => descargarQR(invitado.id, invitado.nombre)} className="text-purple-600 hover:text-purple-800 text-sm font-semibold">⬇️ Descargar QR</button>
                             )}
                         </td>
-                        <td className="p-4 flex gap-3 justify-center items-center h-full pt-6">
+                        
+                        {/* Botones Escritorio */}
+                        <td className="p-4 flex gap-3 justify-center items-center h-full pt-8">
                            <button onClick={() => iniciarEdicion(invitado)} className="text-blue-500 hover:text-blue-700 text-sm font-semibold">Editar</button>
+                           <button onClick={() => restablecerEstatus(invitado.id)} className="text-orange-500 hover:text-orange-700 text-sm font-semibold">Restablecer</button>
                            <button onClick={() => eliminarInvitado(invitado.id)} className="text-red-500 hover:text-red-700 text-sm font-semibold">Borrar</button>
                         </td>
                       </tr>
