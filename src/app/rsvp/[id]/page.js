@@ -84,14 +84,13 @@ export default function RSVPPage() {
       <div className="bg-white p-8 rounded-3xl shadow-xl max-w-md w-full border border-pink-100">
         
         {/* NOMBRE DE LA QUINCEAÑERA */}
-        <h2 className="text-xl md:text-2xl font-bold text-pink-400 mb-1 uppercase tracking-widest leading-tight">Paula Yáñez Valero</h2>
-        <h1 className="text-4xl md:text-5xl font-extrabold text-pink-600 mb-4 tracking-tight drop-shadow-sm">¡Mis XV Años!</h1>
-        <p className="text-gray-500 mb-6 font-medium">Nos encantaría que nos acompañes en este día tan especial.</p>
+        <h2 className="text-xl md:text-2xl font-bold text-pink-400 mb-1 uppercase tracking-widest leading-tight">¡¡¡Los XV de Paula Yáñez Valero!!!</h2>
+        <p className="text-gray-500 mb-6 font-medium">A mis padres y a mí, nos encantaría que nos acompañes en este día tan especial.</p>
         
         {/* DETALLES Y MAPA */}
         <div className="mb-8 px-2">
           <p className="text-sm text-gray-600 leading-relaxed mb-5 text-justify">
-            El evento se llevará a cabo el día <strong>3 de Octubre</strong> del año en curso, en el salón <strong>"Alta Esmeralda"</strong> del restaurante Piedra 44 de la Plaza Vitta con dirección Blvd. Belisario Domínguez 1380-Loc 2A, en un horario de <strong>6pm - 11pm</strong>, esperamos contar con su presencia puntualmente.
+            El evento se llevará a cabo el día <strong>3 de Octubre</strong> del año en curso, en el salón <strong>"Alta Esmeralda"</strong> del restaurante Piedra 44 de la Plaza Vitta con dirección Blvd. Belisario Domínguez 1380-Loc 2A, en un horario de <strong>6pm - 11pm</strong>, esperamos contar con su presencia puntualmente. Si llevas coche puedes ingresar tu coche al estacionamiento del hotel Eco City.
           </p>
           <a 
             href="https://www.google.com/maps/search/?api=1&query=Restaurante+Piedra+44+Plaza+Vitta+Blvd.+Belisario+Domínguez+1380" 
@@ -107,7 +106,7 @@ export default function RSVPPage() {
         <div className="mb-8 p-5 bg-white rounded-2xl border border-pink-100 shadow-sm relative overflow-hidden">
           <div className="absolute top-0 left-0 w-full h-1.5 bg-pink-300"></div>
           <h3 className="text-lg font-bold text-gray-800 mb-1">🎁 Mesa de Regalos</h3>
-          <p className="text-sm text-gray-500 mb-4">El mejor regalo es tu presencia, pero si deseas tener un detalle conmigo:</p>
+          <p className="text-sm text-gray-500 mb-4 text-justify">Uno de los grandes regalos será contar con tu presencia, y si deseas brindarme un detalle, cuento con mesa de regalos en Liverpool con el siguiente numero:</p>
           <div className="bg-pink-50 py-3 px-6 rounded-xl inline-block border border-pink-100">
             <p className="text-xs font-semibold text-pink-800 uppercase tracking-widest mb-1">Liverpool</p>
             <p className="text-2xl font-black text-pink-600 tracking-widest">52034471</p>
