@@ -226,8 +226,9 @@ export default function RSVPPage() {
               
               <div className="bg-[#fdf8f5] py-3 px-6 rounded-lg border border-[#e6c1c3] shadow-inner mb-3">
                 <p className="text-[10px] font-bold text-[#d8a4a5] uppercase tracking-[0.2em] mb-1">Liverpool</p>
-                <p className="text-2xl font-black text-[#5c4033] tracking-[0.15em]">52034471</p>
               </div>
+              <h2 className="text-[#000000] text-3xl mb-2">52034471</h2>
+              
               <p className="text-[10px] text-[#a88978] italic">Vigencia hasta el 2 de noviembre del 2026</p>
             </div>
 
