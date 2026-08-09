@@ -84,13 +84,17 @@ export default function RSVPPage() {
       <div className="bg-white p-8 rounded-3xl shadow-xl max-w-md w-full border border-pink-100">
         
         {/* NOMBRE DE LA QUINCEAÑERA */}
-        <h2 className="text-xl md:text-2xl font-bold text-pink-400 mb-1 uppercase tracking-widest leading-tight">¡¡¡Los XV de Paula Yáñez Valero!!!</h2>
+        <h2 className="text-xl md:text-2xl font-bold text-pink-400 mb-1 uppercase tracking-widest leading-tight">¡¡¡Los XV de <br/>Paula Yáñez Valero!!!</h2>
         <p className="text-gray-500 mb-6 font-medium">A mis padres y a mí, nos encantaría que nos acompañes en este día tan especial.</p>
         
         {/* DETALLES Y MAPA */}
         <div className="mb-8 px-2">
           <p className="text-sm text-gray-600 leading-relaxed mb-5 text-justify">
             El evento se llevará a cabo el día <strong>3 de Octubre</strong> del año en curso, en el salón <strong>"Alta Esmeralda"</strong> del restaurante Piedra 44 de la Plaza Vitta con dirección Blvd. Belisario Domínguez 1380-Loc 2A, en un horario de <strong>6pm - 11pm</strong>, esperamos contar con su presencia puntualmente. Si llevas coche puedes ingresar tu coche al estacionamiento del hotel Eco City.
+          </p>
+          <p className="text-sm text-gray-600 leading-relaxed mb-5 text-justify">
+            <strong>Código de vestimenta:</strong> Formal-Casual<br />
+            Les pedimos con cariño que el color <strong>palo de rosa con dorado</strong> quede reservado para nuestra quinceañera. Gracias por su compresión.
           </p>
           <a 
             href="https://www.google.com/maps/search/?api=1&query=Restaurante+Piedra+44+Plaza+Vitta+Blvd.+Belisario+Domínguez+1380" 
@@ -153,6 +157,9 @@ export default function RSVPPage() {
         {invitado.estatus === 'pendiente' ? (
           puedeConfirmar ? (
             <div className="flex flex-col gap-3 mt-6">
+              <p className="text-sm text-gray-600 leading-relaxed mb-5 text-justify">
+                El periodo para confirmar asistencia finaliza el <strong>24 de septiembre</strong>. Por favor, confirma tu asistencia antes de esa fecha.
+              </p>
               <button 
                 onClick={confirmarAsistencia} disabled={confirmando}
                 className="w-full bg-pink-500 hover:bg-pink-600 text-white font-bold py-4 px-6 rounded-2xl transition-transform active:scale-95 disabled:opacity-50 text-lg shadow-md shadow-pink-200"
