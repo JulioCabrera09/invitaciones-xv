@@ -154,17 +154,12 @@ export default function RSVPPage() {
 
       <div className="relative bg-[#fff0f1]/95 backdrop-blur-md rounded-xl shadow-[0_20px_50px_rgba(92,64,51,0.2)] max-w-md w-full animate-in slide-in-from-bottom-20 fade-in duration-1000 border-2 border-[#d4af37]/40 z-10 overflow-hidden">
         
-        {/* Zonas para tus imágenes PNG florales */}
         <div className="absolute top-0 left-0 w-full h-40 bg-[url('/flores-arriba.png')] bg-cover bg-bottom opacity-90 pointer-events-none z-0"></div>
         <div className="absolute bottom-0 left-0 w-full h-40 bg-[url('/flores-abajo.png')] bg-cover bg-top opacity-90 pointer-events-none z-0"></div>
 
         <div className="relative z-10 border-[4px] border-double border-[#d4af37]/60 m-3 rounded-lg pt-10 pb-16 px-4 md:px-6">
           <div className="flex flex-col items-center text-center">
             
-            {/* ========================================================= */}
-            {/* IMAGEN DE LA CORONA (Reemplaza el código anterior)        */}
-            {/* Asegúrate de tener "corona.png" en tu carpeta "public"    */}
-            {/* ========================================================= */}
             <div className="mt-24 mb-8">
               <img 
                 src="/corona.png" 
@@ -190,7 +185,7 @@ export default function RSVPPage() {
 
             <div className="mb-8 px-1 w-full">
               <div className="mb-4">
-                <h2 className="text-[#5c4033] text-3xl font-bold mb-2">6:00 pm</h2>
+                <h2 className="text-[#5c4033] text-3xl font-bold mb-2">De 6:00 pm a 11:00 pm</h2>
                 <h3 className={`${greatVibes.className} text-3xl text-[#5c4033] mb-1`}>Alta Esmeralda</h3>
                 <p className="text-[#a88978] text-xs font-serif italic mb-4">Restaurante Piedra 44, Plaza Vitta</p>
               </div>
@@ -199,11 +194,12 @@ export default function RSVPPage() {
                 Ubicado en Blvd. Belisario Domínguez 1380-Loc 2A. Esperamos contar con su presencia puntualmente. Si llevas coche puedes ingresar al estacionamiento del hotel Eco City.
               </p>
               
+              {/* BOTÓN MAPAS - GRADIENTE DORADO Y PROTECCIÓN SAFARI */}
               <a 
                 href="https://www.google.com/maps/search/?api=1&query=Restaurante+Piedra+44+Plaza+Vitta+Blvd.+Belisario+Domínguez+1380" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 w-full bg-gradient-to-r from-[#d4af37] to-[#aa8c2c] text-white hover:from-[#c29d2b] hover:to-[#967920] font-bold py-3 px-4 rounded-xl transition-all text-sm shadow-lg border border-[#e6d070]/50"
+                className="appearance-none inline-flex items-center justify-center gap-2 w-full bg-gradient-to-r from-[#d4af37] to-[#aa8c2c] text-white hover:from-[#c29d2b] hover:to-[#967920] font-bold py-3.5 px-4 rounded-xl transition-all text-sm shadow-lg border border-[#e6d070]/50"
               >
                 📍 Ver ubicación en Google Maps
               </a>
@@ -226,9 +222,11 @@ export default function RSVPPage() {
               
               <div className="bg-[#fdf8f5] py-3 px-6 rounded-lg border border-[#e6c1c3] shadow-inner mb-3">
                 <p className="text-[10px] font-bold text-[#d8a4a5] uppercase tracking-[0.2em] mb-1">Liverpool</p>
+                {/* LIVERPOOL EN ARIAL */}
+                <p className="text-2xl font-black text-[#5c4033] tracking-[0.15em]" style={{ fontFamily: 'Arial, Helvetica, sans-serif' }}>
+                  52034471
+                </p>
               </div>
-              <h2 className="text-[#000000] text-3xl mb-2">52034471</h2>
-              
               <p className="text-[10px] text-[#a88978] italic">Vigencia hasta el 2 de noviembre del 2026</p>
             </div>
 
@@ -277,15 +275,19 @@ export default function RSVPPage() {
                       El periodo para confirmar asistencia finaliza el <strong>24 de septiembre</strong>.
                     </p>
                   </div>
+                  
+                  {/* BOTÓN CONFIRMAR - GRADIENTE ROSA Y PROTECCIÓN SAFARI */}
                   <button 
                     onClick={confirmarAsistencia} disabled={confirmando}
-                    className="w-full bg-gradient-to-r from-[#d8a4a5] to-[#c98e90] hover:from-[#c98e90] hover:to-[#b87d7f] text-white font-bold py-3.5 px-6 rounded-xl transition-transform active:scale-95 disabled:opacity-50 text-sm tracking-widest uppercase shadow-lg border border-[#e6c1c3]"
+                    className="appearance-none w-full bg-gradient-to-r from-[#d8a4a5] to-[#c98e90] hover:from-[#c98e90] hover:to-[#b87d7f] text-white font-bold py-3.5 px-6 rounded-xl transition-transform active:scale-95 disabled:opacity-50 text-sm tracking-widest uppercase shadow-lg border border-[#e6c1c3]"
                   >
                     {confirmando ? 'Procesando...' : 'Confirmar Asistencia'}
                   </button>
+                  
+                  {/* BOTÓN RECHAZAR - ESTILO ELEGANTE Y PROTECCIÓN SAFARI */}
                   <button 
                     onClick={rechazarAsistencia} disabled={confirmando}
-                    className="w-full bg-white/50 text-[#a88978] hover:text-[#5c4033] hover:bg-white/80 font-semibold py-3 px-6 rounded-xl transition-colors disabled:opacity-50 text-xs uppercase tracking-widest mt-2 border border-[#f4e4e4]"
+                    className="appearance-none w-full bg-white/50 text-[#312721] hover:text-[#5c4033] hover:bg-white/80 font-semibold py-3 px-6 rounded-xl transition-colors disabled:opacity-50 text-xs uppercase tracking-widest mt-2 border border-[#f4e4e4]"
                   >
                     No podré asistir
                   </button>
